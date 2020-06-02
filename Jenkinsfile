@@ -1,19 +1,17 @@
 pipeline{
 
       agent none
+
+      tools {
+          maven 'Maven 3.6.3'
+      }
         
         stages{
 
-            stage('Quality Gate Status Check'){
-                agent {                    
-                    docker {
-                        image 'maven'
-                        args '-v $HOME/.m2:/root/.m2'
-                    }                                            
-                }
+            stage('Build'){                
                 steps{
                     script{
-                        sh "mvn clean install"		    	    
+                        sh 'mvn clean install'
                  	}
 
                	}  
