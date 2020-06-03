@@ -1,10 +1,9 @@
 pipeline{
 
-      agent {
-          docker {
-              image 'maven'
-              args '-v $HOME/.m2:root/m2'
-          }
+      agent any
+
+      tools {
+          maven 'Maven'
       }
         
         stages{
