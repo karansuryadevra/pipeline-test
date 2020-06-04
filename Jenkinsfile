@@ -36,7 +36,7 @@ pipeline{
             }
             stage('Build'){
                 steps{
-                    sript{
+                    script{
                         withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'docker-password', usernameVariable: 'docker-username')]) {
                             sh '''
                                 docker build -t $docker-username/jenkins-pipeline-container:$docker_tag .                                  
