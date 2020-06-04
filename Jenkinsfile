@@ -37,11 +37,12 @@ pipeline{
             stage('Build'){
                 steps{
                     script{
-                        withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'docker-password', usernameVariable: 'docker-username')]) {
+                        withCredentials([string(credentialsId: 'docker_username', variable: 'docker_username'), string(credentialsId: 'docker_password', variable: 'docker_password')]) {
                             sh '''
-                                docker build -t $docker-username/jenkins-pipeline-container:$docker_tag .                                  
+                                echo 'The docker tag is ' $docker_tag
+                                docker build -t $docker-username/jenkins-pipeline-container:$BUILD_NUMBER .                                  
                                 docker login -u $docker-username -p $docker-password
-                                docker push $docker-username/jenkins-pipeline-container:$docker_tag
+                                docker push $docker-username/jenkins-pipeline-container:$BUILD_NUMBER
                                 '''   
                         }
                     }
