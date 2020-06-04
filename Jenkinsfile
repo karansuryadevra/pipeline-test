@@ -40,9 +40,10 @@ pipeline{
                         withCredentials([string(credentialsId: 'docker_username', variable: 'docker_username'), string(credentialsId: 'docker_password', variable: 'docker_password')]) {
                             sh '''
                                 echo 'The docker tag is ' $docker_tag
-                                docker build -t $docker-username/jenkins-pipeline-container:$BUILD_NUMBER .                                  
-                                docker login -u $docker-username -p $docker-password
-                                docker push $docker-username/jenkins-pipeline-container:$BUILD_NUMBER
+                                echo 'username is ' $docker_username
+                                docker build -t $docker_username/jenkins-pipeline-container:$BUILD_NUMBER .                                  
+                                docker login -u $docker_username -p $docker_password
+                                docker push $docker_username/jenkins-pipeline-container:$BUILD_NUMBER
                                 '''   
                         }
                     }
