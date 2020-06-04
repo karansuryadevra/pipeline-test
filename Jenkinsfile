@@ -7,7 +7,7 @@ pipeline{
       agent any
 
       environment {
-          docker-tag = getDockerTag()
+          docker_tag = getDockerTag()
       }
 
       tools {
@@ -40,9 +40,9 @@ pipeline{
                         sript{
                             withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'docker-password', usernameVariable: 'docker-username')]) {
                                 sh '''
-                                    docker build -t $docker-username/jenkins-pipeline-container:$docker-tag .                                  
+                                    docker build -t $docker-username/jenkins-pipeline-container:$docker_tag .                                  
                                     docker login -u $docker-username -p $docker-password
-                                    docker push $docker-username/jenkins-pipeline-container:$docker-tag
+                                    docker push $docker-username/jenkins-pipeline-container:$docker_tag
                                  '''   
                             }
                         }
