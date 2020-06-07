@@ -39,16 +39,23 @@ pipeline{
                     script{
                         withCredentials([string(credentialsId: 'docker_username', variable: 'docker_username'), string(credentialsId: 'docker_password', variable: 'docker_password')]) {
                             sh '''
-                                echo 'The docker tag is ' $docker_tag
-                                echo 'username is ' $docker_username
-                                docker build -t $docker_username/jenkins-pipeline-container:$BUILD_NUMBER .                                  
+                                docker build -t $docker_username/jenkins-pipeline-container:$docker_tag .                                  
                                 docker login -u $docker_username -p $docker_password
-                                docker push $docker_username/jenkins-pipeline-container:$BUILD_NUMBER
-                                '''   
+                                docker push $docker_username/jenkins-pipeline-container:$docker_tag
+                            '''   
                         }
                     }
                 }
 
+            }
+            stage('Test connection'){
+                steps{
+                    sh '''
+                        ls -ltr
+                        ssh -i ./ssh-keys/k8s-key jenkins@35.226.66.135
+                        exit
+                        '''
+                }
             }	
 		
         }	       	     	         
