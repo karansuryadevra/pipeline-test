@@ -53,7 +53,9 @@ pipeline{
                     sh '''
                         pwd -L
                         ls -ltr
-                        ssh -i ./ssh-keys/k8s-key jenkins@35.226.66.135
+                        cd ../../ssh-keys
+                        ls -ltr
+                        ssh -i ./k8s-key jenkins@35.226.66.135
                         exit
                         '''
                 }
