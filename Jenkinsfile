@@ -51,6 +51,7 @@ pipeline{
             stage('Test connection'){
                 steps{
                     sh '''
+                        pwd -L
                         ls -ltr
                         ssh -i ./ssh-keys/k8s-key jenkins@35.226.66.135
                         exit
