@@ -55,7 +55,7 @@ pipeline{
                         ls -ltr
                         cd ../../ssh-keys
                         ls -ltr
-                        ssh -i ./k8s-key jenkins@${k8s-machine}
+                        ssh -i ./k8s-key jenkins@$k8s-machine
                         exit
                         '''
                 }
